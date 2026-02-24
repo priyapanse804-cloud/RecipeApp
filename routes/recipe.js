@@ -14,5 +14,5 @@ router.get("/:id",getRecipe)
 router.post("/",upload.single("file"),verifyToken,addRecipe)
 router.put("/:id",upload.single("coverImage"),editRecipe)
 router.delete("/:id",deleteRecipe)
-
+                                  
 module.exports=router
