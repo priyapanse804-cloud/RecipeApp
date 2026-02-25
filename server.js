@@ -5,12 +5,16 @@ const cors=require("cors")
   
 const app=express();
 connectDB()
-app.use( express.json())
-app.use(express.static("public"))
 app.use(cors({
-  origin: "http://recipe-frontend-black.vercel.app",
+  origin: [
+    "http://localhost:5173",
+    "https://recipe-frontend-brown.vercel.app"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
+app.use( express.json())
+app.use(express.static("public"))
 
 app.use("/",require("./routes/user"))
 const PORT=process.env.PORT || 3000
