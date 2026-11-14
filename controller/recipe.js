@@ -1,18 +1,26 @@
 const connectDB = require("../config/db")
 const recipeModel=require("../models/recipe")
-const multer  = require('multer')
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
 
+const imagePath = path.join(__dirname, "../public/images");
+
+if (!fs.existsSync(imagePath)) {
+  fs.mkdirSync(imagePath, { recursive: true });
+}
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './public/images')
+    cb(null, imagePath);
   },
+
   filename: function (req, file, cb) {
-     cb(null, Date.now() + "-" + file.originalname);
+    cb(null, Date.now() + "-" + file.originalname);
   },
 });
 
-const upload = multer({ storage: storage })
+const upload = multer({ storage: storage });
 
 
 const getRecipes=async(req,res)=>{
