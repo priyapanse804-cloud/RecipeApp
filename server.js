@@ -2,7 +2,7 @@ const dotenv=require("dotenv").config()
 const express=require("express");
 const connectDB=require("./config/db")
 const cors=require("cors")
-  
+const path = require("path");
 const app=express();
 connectDB()
 app.use(cors({
@@ -15,7 +15,7 @@ app.use(cors({
   credentials: true
 }));
 app.use( express.json())
-app.use(express.static("public"))
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/",require("./routes/user"))
 const PORT=process.env.PORT || 3000
